@@ -92,6 +92,8 @@ RUN apt-get -q install --no-install-recommends -y bats
 ####
 # Install pylint
 ####
+RUN pip install --upgrade pip
+RUN pip install setuptools
 RUN pip install pylint
 
 ####
