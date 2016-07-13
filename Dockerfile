@@ -60,6 +60,7 @@ RUN apt-get -q update && apt-get -q install --no-install-recommends -y \
     python2.7 \
     python-pip \
     rsync \
+    shellcheck \
     snappy \
     zlib1g-dev
 
@@ -80,17 +81,6 @@ RUN apt-get -q update && apt-get -q install --no-install-recommends -y \
     maven
 
 ENV FINDBUGS_HOME /usr
-
-####
-# Install shellcheck
-####
-RUN apt-get -q install -y cabal-install
-RUN mkdir /root/.cabal
-RUN echo "remote-repo: hackage.fpcomplete.com:http://hackage.fpcomplete.com/" >> /root/.cabal/config
-#RUN echo "remote-repo: hackage.haskell.org:http://hackage.haskell.org/" > /root/.cabal/config
-RUN echo "remote-repo-cache: /root/.cabal/packages" >> /root/.cabal/config
-RUN cabal update
-RUN cabal install shellcheck --global
 
 ####
 # Install bats
