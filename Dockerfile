@@ -65,9 +65,9 @@ RUN apt-get -q update && apt-get -q install --no-install-recommends -y \
 # protobuf 2.5.0 isn't available in Xenial, so grab the source from Trusty (14.04) and recompile
 ####
 
-RUN curl -s -S -O https://launchpad.net/ubuntu/+source/protobuf/2.5.0-9ubuntu1/+build/5604345/+files/libprotobuf8_2.5.0-9ubuntu1_ppc64el.deb
-RUN curl -s -S -O https://launchpad.net/ubuntu/+source/protobuf/2.5.0-9ubuntu1/+build/5604345/+files/libprotoc8_2.5.0-9ubuntu1_ppc64el.deb
-RUN curl -s -S -O https://launchpad.net/ubuntu/+source/protobuf/2.5.0-9ubuntu1/+build/5604345/+files/protobuf-compiler_2.5.0-9ubuntu1_ppc64el.deb
+RUN curl -L -s -S -O https://launchpad.net/ubuntu/+source/protobuf/2.5.0-9ubuntu1/+build/5604345/+files/libprotobuf8_2.5.0-9ubuntu1_ppc64el.deb
+RUN curl -L -s -S -O https://launchpad.net/ubuntu/+source/protobuf/2.5.0-9ubuntu1/+build/5604345/+files/libprotoc8_2.5.0-9ubuntu1_ppc64el.deb
+RUN curl -L -s -S -O https://launchpad.net/ubuntu/+source/protobuf/2.5.0-9ubuntu1/+build/5604345/+files/protobuf-compiler_2.5.0-9ubuntu1_ppc64el.deb
 RUN dpkg -i libprotobuf8_2.5.0-9ubuntu1_ppc64el.deb libprotoc8_2.5.0-9ubuntu1_ppc64el.deb protobuf-compiler_2.5.0-9ubuntu1_ppc64el.deb
 RUN rm libprotobuf8_2.5.0-9ubuntu1_ppc64el.deb libprotoc8_2.5.0-9ubuntu1_ppc64el.deb protobuf-compiler_2.5.0-9ubuntu1_ppc64el.deb
 
