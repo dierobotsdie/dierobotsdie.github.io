@@ -49,8 +49,6 @@ RUN apt-get -q update && apt-get -q install --no-install-recommends -y \
     libbz2-dev \
     libcurl4-openssl-dev \
     libfuse-dev \
-    libprotobuf-dev \
-    libprotoc-dev \
     libsnappy-dev \
     libssl-dev \
     libtool \
