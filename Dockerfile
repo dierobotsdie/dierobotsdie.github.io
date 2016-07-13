@@ -18,7 +18,9 @@
 # Dockerfile for installing the necessary dependencies for building Hadoop.
 # See BUILDING.txt.
 
-
+#
+# start with ubuntu:xenial (aka 16.04 LTS) for OpenJDK 8
+#
 FROM ppc64le/ubuntu:xenial
 
 WORKDIR /root
@@ -54,15 +56,22 @@ RUN apt-get -q update && apt-get -q install --no-install-recommends -y \
     libtool \
     pinentry-curses \
     pkg-config \
-    protobuf-compiler \
-    protobuf-c-compiler \
     python \
     python2.7 \
     python-pip \
     rsync \
-    shellcheck \
     snappy \
     zlib1g-dev
+
+######
+# protobuf 2.5.0 isn't available in Xenial, so grab the source from Trusty (14.04) and recompile
+####
+
+RUN curl -s -S -O https://launchpad.net/ubuntu/+source/protobuf/2.5.0-9ubuntu1/+build/5604345/+files/libprotobuf8_2.5.0-9ubuntu1_ppc64el.deb
+RUN curl -s -S -O https://launchpad.net/ubuntu/+source/protobuf/2.5.0-9ubuntu1/+build/5604345/+files/libprotoc8_2.5.0-9ubuntu1_ppc64el.deb
+RUN curl -s -S -O https://launchpad.net/ubuntu/+source/protobuf/2.5.0-9ubuntu1/+build/5604345/+files/protobuf-compiler_2.5.0-9ubuntu1_ppc64el.deb
+RUN dpkg -i libprotobuf8_2.5.0-9ubuntu1_ppc64el.deb libprotoc8_2.5.0-9ubuntu1_ppc64el.deb protobuf-compiler_2.5.0-9ubuntu1_ppc64el.deb
+RUN rm libprotobuf8_2.5.0-9ubuntu1_ppc64el.deb libprotoc8_2.5.0-9ubuntu1_ppc64el.deb protobuf-compiler_2.5.0-9ubuntu1_ppc64el.deb
 
 #######
 # OpenJDK Java
@@ -80,7 +89,15 @@ RUN apt-get -q update && apt-get -q install --no-install-recommends -y \
     findbugs \
     maven
 
+#
+# sourceforge is unreliable, 16.04 ships with 3.0.1 so we're just going to use it.
+#
 ENV FINDBUGS_HOME /usr
+
+####
+# Install shellcheck
+####
+RUN apt-get -q install --no-install-recommends -y shellcheck
 
 ####
 # Install bats
@@ -92,7 +109,6 @@ RUN apt-get -q install --no-install-recommends -y bats
 ####
 # Install pylint
 ####
-RUN pip install --upgrade pip
 RUN pip install setuptools
 RUN pip install pylint
 
