@@ -87,10 +87,15 @@ RUN apt-get -q update && apt-get -q install --no-install-recommends -y \
     findbugs \
     maven
 
-#
-# sourceforge is unreliable, 16.04 ships with 3.0.1 so we're just going to use it.
-#
-ENV FINDBUGS_HOME /usr
+######
+# Install findbugs
+######
+RUN mkdir -p /opt/findbugs && \
+    curl -L -s -S \
+         https://sourceforge.net/projects/findbugs/files/findbugs/3.0.1/findbugs-noUpdateChecks-3.0.1.tar.gz/download \
+         -o /opt/findbugs.tar.gz && \
+    tar xzf /opt/findbugs.tar.gz --strip-components 1 -C /opt/findbugs
+ENV FINDBUGS_HOME /opt/findbugs
 
 ####
 # Install shellcheck
