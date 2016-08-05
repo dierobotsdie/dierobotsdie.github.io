@@ -53,7 +53,6 @@ RUN apt-get -q update && apt-get -q install --no-install-recommends -y \
     libssl-dev \
     libtool \
     pinentry-curses \
-    pkg-config \
     python \
     python2.7 \
     python-pip \
