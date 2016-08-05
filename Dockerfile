@@ -35,30 +35,33 @@ ENV DEBCONF_TERSE true
 # Ubuntu Java.  See Java section below!
 ######
 RUN apt-get -q update && apt-get -q install --no-install-recommends -y \
-    build-essential \
-    bzip2 \
-    cmake \
-    curl \
-    doxygen \
-    fuse \
-    g++ \
-    gcc \
-    git \
-    gnupg-agent \
-    make \
-    libbz2-dev \
-    libcurl4-openssl-dev \
-    libfuse-dev \
-    libsnappy-dev \
-    libssl-dev \
-    libtool \
-    pinentry-curses \
-    python \
-    python2.7 \
-    python-pip \
-    rsync \
-    snappy \
-    zlib1g-dev
+    build-essential 
+
+RUN apt-get -q install --no-install-recommends -y bzip2
+
+RUN apt-get -q install --no-install-recommends -y cmake 
+RUN apt-get -q install --no-install-recommends -y    curl 
+RUN apt-get -q install --no-install-recommends -y doxygen 
+RUN apt-get -q install --no-install-recommends -y fuse 
+RUN apt-get -q install --no-install-recommends -y    g++ 
+RUN apt-get -q install --no-install-recommends -y    gcc 
+RUN apt-get -q install --no-install-recommends -y    git 
+RUN apt-get -q install --no-install-recommends -y    gnupg-agent 
+RUN apt-get -q install --no-install-recommends -y    make 
+RUN apt-get -q install --no-install-recommends -y    libbz2-dev 
+RUN apt-get -q install --no-install-recommends -y    libcurl4-openssl-dev 
+RUN apt-get -q install --no-install-recommends -y    libfuse-dev 
+RUN apt-get -q install --no-install-recommends -y    libsnappy-dev 
+RUN apt-get -q install --no-install-recommends -y    libssl-dev 
+RUN apt-get -q install --no-install-recommends -y    libtool 
+RUN apt-get -q install --no-install-recommends -y    pinentry-curses 
+RUN apt-get -q install --no-install-recommends -y    pkg-config
+RUN apt-get -q install --no-install-recommends -y    python 
+RUN apt-get -q install --no-install-recommends -y    python2.7 
+RUN apt-get -q install --no-install-recommends -y    python-pip 
+RUN apt-get -q install --no-install-recommends -y    rsync 
+RUN apt-get -q install --no-install-recommends -y    snappy 
+RUN apt-get -q install --no-install-recommends -y    zlib1g-dev
 
 ######
 # protobuf 2.5.0 isn't available in Xenial, so grab the source from Trusty (14.04) and recompile
