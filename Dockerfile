@@ -25,8 +25,8 @@ FROM ppc64le/ubuntu:xenial
 
 WORKDIR /root
 
-ENV DEBIAN_FRONTEND noninteractive
-ENV DEBCONF_TERSE true
+#ENV DEBIAN_FRONTEND noninteractive
+#ENV DEBCONF_TERSE true
 
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
