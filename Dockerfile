@@ -21,7 +21,7 @@
 #
 # start with ubuntu:xenial (aka 16.04 LTS) for OpenJDK 8
 #
-FROM ppc64le/ubuntu:xenial
+FROM ppc64le/ubuntu:trusty
 
 WORKDIR /root
 
