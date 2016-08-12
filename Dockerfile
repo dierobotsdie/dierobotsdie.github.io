@@ -57,6 +57,7 @@ RUN apt-get -q install --no-install-recommends -y    libsnappy-dev
 RUN apt-get -q install --no-install-recommends -y    libssl-dev 
 RUN apt-get -q install --no-install-recommends -y    libtool 
 RUN apt-get -q install --no-install-recommends -y    pinentry-curses 
+RUN apt-get -q install --no-install-recommends -y    protoc
 RUN apt-get -q install --no-install-recommends -y    pkg-config
 RUN apt-get -q install --no-install-recommends -y    python 
 RUN apt-get -q install --no-install-recommends -y    python2.7 
@@ -65,22 +66,15 @@ RUN apt-get -q install --no-install-recommends -y    rsync
 RUN apt-get -q install --no-install-recommends -y    snappy 
 RUN apt-get -q install --no-install-recommends -y    zlib1g-dev
 
-######
-# protobuf 2.5.0 isn't available in Xenial, so grab the source from Trusty (14.04) and recompile
-####
-
-RUN curl -L -s -S -O https://launchpad.net/ubuntu/+source/protobuf/2.5.0-9ubuntu1/+build/5604345/+files/libprotobuf8_2.5.0-9ubuntu1_ppc64el.deb
-RUN curl -L -s -S -O https://launchpad.net/ubuntu/+source/protobuf/2.5.0-9ubuntu1/+build/5604345/+files/libprotoc8_2.5.0-9ubuntu1_ppc64el.deb
-RUN curl -L -s -S -O https://launchpad.net/ubuntu/+source/protobuf/2.5.0-9ubuntu1/+build/5604345/+files/protobuf-compiler_2.5.0-9ubuntu1_ppc64el.deb
-RUN dpkg -i libprotobuf8_2.5.0-9ubuntu1_ppc64el.deb libprotoc8_2.5.0-9ubuntu1_ppc64el.deb protobuf-compiler_2.5.0-9ubuntu1_ppc64el.deb
-RUN rm libprotobuf8_2.5.0-9ubuntu1_ppc64el.deb libprotoc8_2.5.0-9ubuntu1_ppc64el.deb protobuf-compiler_2.5.0-9ubuntu1_ppc64el.deb
-
 #######
 # OpenJDK Java
 #######
 
+RUN add-apt-repository -y ppa:openjdk-r/ppa
+RUN apt-get -q update
+RUN apt-get -q install --no-install-recommends -y bats
 RUN apt-get install -y software-properties-common
-RUN apt-get -q install -y openjdk-8-jdk
+RUN apt-get -q install -y openjdk-8
 RUN update-ca-certificates -f
 
 ####
