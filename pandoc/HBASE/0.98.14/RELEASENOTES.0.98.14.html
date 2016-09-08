@@ -1,0 +1,40 @@
+<!---
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+-->
+<h1 id="apache-hbase-0.98.14-release-notes">Apache HBase 0.98.14 Release Notes</h1>
+<p>These release notes cover new developer and user-facing incompatibilities, features, and major improvements.</p>
+<hr />
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/HBASE-13963">HBASE-13963</a> | <em>Critical</em> | <strong>avoid leaking jdk.tools</strong></li>
+</ul>
+<p>HBase now ensures that the JDK tools jar used during the build process is not exposed to downstream clients as a transitive dependency of hbase-annotations.</p>
+<p>If you need to have the JDK tools jar in your classpath, you should add a system dependency on it. See the hbase-annotations pom for an example of the necessary pom additions.</p>
+<hr />
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/HBASE-13849">HBASE-13849</a> | <em>Major</em> | <strong>Remove restore and clone snapshot from the WebUI</strong></li>
+</ul>
+<p>The HBase master status web page no longer allows operators to clone snapshots nor restore snapshots.</p>
+<hr />
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/HBASE-13666">HBASE-13666</a> | <em>Major</em> | <strong>book.pdf is not renamed during site build</strong></li>
+</ul>
+<p>Correct PDF renaming and bump version of maven-antrun-plugin</p>
+<hr />
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/HBASE-13646">HBASE-13646</a> | <em>Major</em> | <strong>HRegion#execService should not try to build incomplete messages</strong></li>
+</ul>
+<p>When RegionServerCoprocessors throw an exception we will no longer attempt to build an incomplete RPC response message. Instead, the response message will be null.</p>
