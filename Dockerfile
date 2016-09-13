@@ -102,7 +102,8 @@ RUN echo "remote-repo: hackage.fpcomplete.com:http://hackage.fpcomplete.com/" >>
 #RUN echo "remote-repo: hackage.haskell.org:http://hackage.haskell.org/" > /root/.cabal/config
 RUN echo "remote-repo-cache: /root/.cabal/packages" >> /root/.cabal/config
 RUN cabal update
-RUN cabal install shellcheck --global
+RUN cabal install cabal-install
+RUN /root/.cabal/bin/cabal install shellcheck --global
 
 ####
 # Install bats
