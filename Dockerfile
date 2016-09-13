@@ -19,7 +19,7 @@
 # See BUILDING.txt.
 
 
-FROM ubuntu:trusty
+FROM ppc64le/ubuntu:trusty
 
 WORKDIR /root
 
