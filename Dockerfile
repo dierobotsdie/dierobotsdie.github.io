@@ -70,7 +70,7 @@ RUN apt-get -q update && apt-get -q install --no-install-recommends -y \
 RUN apt-get -q install --no-install-recommends -y software-properties-common
 RUN add-apt-repository -y ppa:openjdk-r/ppa
 RUN apt-get -q update
-RUN apt-get -q install --no-install-recommends -y openjdk-8-jdk-headless
+RUN apt-get -q install --no-install-recommends -y openjdk-8-jdk
 
 ####
 # Apps that require Java
