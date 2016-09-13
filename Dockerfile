@@ -18,17 +18,13 @@
 # Dockerfile for installing the necessary dependencies for building Hadoop.
 # See BUILDING.txt.
 
-#
-# start with ubuntu:xenial (aka 16.04 LTS) for OpenJDK 8
-#
-FROM ppc64le/ubuntu:trusty
+
+FROM ubuntu:trusty
 
 WORKDIR /root
 
-#ENV DEBIAN_FRONTEND noninteractive
-#ENV DEBCONF_TERSE true
-
-#RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
+ENV DEBIAN_FRONTEND noninteractive
+ENV DEBCONF_TERSE true
 
 ######
 # Install common dependencies from packages
@@ -37,53 +33,61 @@ WORKDIR /root
 # Ubuntu Java.  See Java section below!
 ######
 RUN apt-get -q update && apt-get -q install --no-install-recommends -y \
-    build-essential 
-
-RUN apt-get -q install --no-install-recommends -y bzip2
-
-RUN apt-get -q install --no-install-recommends -y cmake 
-RUN apt-get -q install --no-install-recommends -y    curl 
-RUN apt-get -q install --no-install-recommends -y doxygen 
-RUN apt-get -q install --no-install-recommends -y fuse 
-RUN apt-get -q install --no-install-recommends -y    g++ 
-RUN apt-get -q install --no-install-recommends -y    gcc 
-RUN apt-get -q install --no-install-recommends -y    git 
-RUN apt-get -q install --no-install-recommends -y    gnupg-agent 
-RUN apt-get -q install --no-install-recommends -y    make 
-RUN apt-get -q install --no-install-recommends -y    libbz2-dev 
-RUN apt-get -q install --no-install-recommends -y    libcurl4-openssl-dev 
-RUN apt-get -q install --no-install-recommends -y    libfuse-dev 
-RUN apt-get -q install --no-install-recommends -y    libsnappy-dev 
-RUN apt-get -q install --no-install-recommends -y    libssl-dev 
-RUN apt-get -q install --no-install-recommends -y    libtool 
-RUN apt-get -q install --no-install-recommends -y    pinentry-curses 
-RUN apt-get -q install --no-install-recommends -y    protoc
-RUN apt-get -q install --no-install-recommends -y    pkg-config
-RUN apt-get -q install --no-install-recommends -y    python 
-RUN apt-get -q install --no-install-recommends -y    python2.7 
-RUN apt-get -q install --no-install-recommends -y    python-pip 
-RUN apt-get -q install --no-install-recommends -y    rsync 
-RUN apt-get -q install --no-install-recommends -y    snappy 
-RUN apt-get -q install --no-install-recommends -y    zlib1g-dev
+    build-essential \
+    bzip2 \
+    cmake \
+    curl \
+    doxygen \
+    fuse \
+    g++ \
+    gcc \
+    git \
+    gnupg-agent \
+    make \
+    libbz2-dev \
+    libcurl4-openssl-dev \
+    libfuse-dev \
+    libprotobuf-dev \
+    libprotoc-dev \
+    libsnappy-dev \
+    libssl-dev \
+    libtool \
+    pinentry-curses \
+    pkg-config \
+    protobuf-compiler \
+    protobuf-c-compiler \
+    python \
+    python2.7 \
+    python-pip \
+    rsync \
+    snappy \
+    zlib1g-dev
 
 #######
-# OpenJDK Java
+# Oracle Java
 #######
 
-RUN add-apt-repository -y ppa:openjdk-r/ppa
+RUN echo "dot_style = mega" > "/root/.wgetrc"
+RUN echo "quiet = on" >> "/root/.wgetrc"
+
+RUN apt-get -q install --no-install-recommends -y software-properties-common
+RUN add-apt-repository -y ppa:webupd8team/java
 RUN apt-get -q update
-RUN apt-get -q install --no-install-recommends -y bats
-RUN apt-get install -y software-properties-common
-RUN apt-get -q install -y openjdk-8
-RUN update-ca-certificates -f
+
+# Auto-accept the Oracle JDK license
+RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | sudo /usr/bin/debconf-set-selections
+RUN apt-get -q install --no-install-recommends -y oracle-java8-installer
 
 ####
 # Apps that require Java
 ###
 RUN apt-get -q update && apt-get -q install --no-install-recommends -y \
     ant \
-    findbugs \
     maven
+
+# Fixing the Apache commons / Maven dependency problem under Ubuntu:
+# See http://wiki.apache.org/commons/VfsProblems
+RUN cd /usr/share/maven/lib && ln -s ../../java/commons-lang.jar .
 
 ######
 # Install findbugs
@@ -116,7 +120,6 @@ RUN apt-get -q install --no-install-recommends -y bats
 ####
 # Install pylint
 ####
-RUN pip install setuptools
 RUN pip install pylint
 
 ####
