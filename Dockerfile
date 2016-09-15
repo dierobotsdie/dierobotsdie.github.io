@@ -94,10 +94,8 @@ RUN mkdir -p /opt/findbugs && \
 ENV FINDBUGS_HOME /opt/findbugs
 
 ####
-# Install shellcheck
+# There is no shellcheck for trusty
 ####
-RUN echo "deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
-RUN apt-get -q update && apt-get -q install --no-install-recommends -y shellcheck
 
 ####
 # Install bats
