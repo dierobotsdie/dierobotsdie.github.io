@@ -107,9 +107,10 @@ ENV FINDBUGS_HOME /opt/findbugs
 ####
 # Install bats
 ####
-RUN add-apt-repository -y ppa:duggan/bats
-RUN apt-get -q update
-RUN apt-get -q install --no-install-recommends -y bats
+
+# bats isn't available for Trusty, so grab Xenial's and compile.
+RUN curl -L -s -S -O https://launchpad.net/ubuntu/+archive/primary/+files/bats_0.4.0-1ubuntu4_all.deb
+RUN dpkg -i bats_0.4.0-1ubuntu4_all.deb
 
 ####
 # Install pylint
