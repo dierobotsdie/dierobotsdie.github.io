@@ -96,10 +96,8 @@ ENV FINDBUGS_HOME /opt/findbugs
 ####
 # Install shellcheck
 ####
-
-# compiling shellcheck 0.4.4 doesn't work without patches so let's stick with the ancient
-# old version in the trusty tree as it's better than nothing
-RUN apt-get -q install --no-install-recommends -y shellcheck
+RUN deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse
+RUN apt-get -q update && apt-get -q install --no-install-recommends -y shellcheck
 
 ####
 # Install bats
