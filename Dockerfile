@@ -96,13 +96,10 @@ ENV FINDBUGS_HOME /opt/findbugs
 ####
 # Install shellcheck
 ####
-#RUN apt-get -q install -y cabal-install
-#RUN mkdir /root/.cabal
-#RUN echo "remote-repo: hackage.fpcomplete.com:http://hackage.fpcomplete.com/" >> /root/.cabal/config
-#RUN echo "remote-repo: hackage.haskell.org:http://hackage.haskell.org/" > /root/.cabal/config
-#RUN echo "remote-repo-cache: /root/.cabal/packages" >> /root/.cabal/config
-#RUN cabal update
-#RUN cabal install shellcheck --global
+
+# compiling shellcheck 0.4.4 doesn't work without patches so let's stick with the ancient
+# old version in the trusty tree as it's better than nothing
+RUN apt-get -q install --no-install-recommends -y shellcheck
 
 ####
 # Install bats
