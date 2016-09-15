@@ -96,7 +96,7 @@ ENV FINDBUGS_HOME /opt/findbugs
 ####
 # Install shellcheck
 ####
-RUN deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse
+RUN echo "deb http://archive.ubuntu.com/ubuntu trusty-backports main restricted universe multiverse" >> /etc/apt/sources.list
 RUN apt-get -q update && apt-get -q install --no-install-recommends -y shellcheck
 
 ####
