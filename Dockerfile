@@ -107,9 +107,9 @@ ENV FINDBUGS_HOME /opt/findbugs
 ####
 # Install bats
 ####
-#RUN add-apt-repository -y ppa:duggan/bats
-#RUN apt-get -q update
-#RUN apt-get -q install --no-install-recommends -y bats
+RUN add-apt-repository -y ppa:duggan/bats
+RUN apt-get -q update
+RUN apt-get -q install --no-install-recommends -y bats
 
 ####
 # Install pylint
